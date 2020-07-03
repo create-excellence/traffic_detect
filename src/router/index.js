@@ -19,6 +19,10 @@ const routes = [
                 component:() => import('../views/dashbord'),
             },
             {
+                path:'devices',
+                component:() => import('../views/devices'),
+            },    
+            {
                 path:'settings',
                 component:() => import('../views/settings'),
             },

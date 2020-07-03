@@ -5,10 +5,10 @@
       <i class="el-icon-data-board"></i>
       <span slot="title">Dashboard</span>
     </template></el-menu-item>
-    <el-menu-item index="/center/device">
+    <el-menu-item index="/center/devices">
     <template slot="title">
       <i class="el-icon-setting"></i>
-      <span slot="title">Device</span>
+      <span slot="title">Devices</span>
     </template></el-menu-item>
     <el-menu-item index="/center/settings">
     <template slot="title">
