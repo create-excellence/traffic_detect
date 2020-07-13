@@ -161,6 +161,20 @@
         <el-input-number   v-model="editForm.warning"
             placeholder="请输入设备所在位置" :precision="0"  :min="0"></el-input-number>
         </el-form-item>
+            <el-form-item
+          prop="position"
+          label="状态"
+        >
+       <el-switch
+    v-model="editForm.status"
+   active-value="0"
+   inactive-value="1"
+   
+  >
+</el-switch>
+<span v-if="editForm.status==0"> 已启用</span>
+<span v-else> 已关闭</span>
+        </el-form-item>
       </el-form>
       <div
         slot="footer"
@@ -199,7 +213,8 @@ export default {
         source:'',
         code:'',
         position:'',
-        warning:60,    
+        warning:60, 
+        status:"0"   
       },
       carmer: {},
       loading: true,
@@ -282,7 +297,8 @@ export default {
         source:'',
         code:'',
         position:'',
-        warning:60,    
+        warning:60, 
+        status:"0"     
       }
     },
     handleFilter() {
@@ -296,7 +312,8 @@ export default {
         source:carmer.source,
         code:carmer.code,
         position:carmer.position,
-        warning:carmer.warning,    
+        warning:carmer.warning,  
+        status:carmer.status
       },
       this.showDialog = true
     },
