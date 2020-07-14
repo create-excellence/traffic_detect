@@ -18,17 +18,35 @@
           <div slot="header" class="clearfix">
             <span>实时人数</span>
           </div>
-          <div>
-            <h3>当前人数：{{number}}人/次</h3>
-          </div>
-          <div>
-            <span>{{now}}</span>
+          <div style="height:100px;padding:10px;margin-top:50px">
+            <div>
+              <h3 style="color:#5e5e5e">当前人数：{{number}}人/次</h3>
+            </div>
+            <div>
+              <span>{{now}}</span>
+            </div>
           </div>
         </el-card>
       </div>
     </div>
     <el-divider></el-divider>
-    <div id="main" style="width: 1200px;height:300px;"></div>
+    <!-- <div id="main" style="width: 1200px;height:300px;"></div> -->
+    <el-table :data="tableData" size="small" style="width:950px;margin:0 auto;">
+      <el-table-column type="index" width="100"></el-table-column>
+      <el-table-column prop="number" label="人数"></el-table-column>
+      <el-table-column prop="warning" label="预警值"></el-table-column>
+      <el-table-column label="超值">
+        <template slot-scope="scope">
+          <span>{{scope.row.number - scope.row.warning}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="超值百分比">
+        <template slot-scope="scope">
+          <span>{{(((scope.row.number - scope.row.warning)/scope.row.warning)*100).toFixed(2)}}%</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createTime" label="时间"></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -42,9 +60,17 @@ export default {
     return {
       //http://play.imhtb.cn/live/1.flv
       //rtmp://play.imhtb.cn/live/1
-      videoUrl: "http://play.imhtb.cn/live/1.flv",
+      //videoUrl:"rtmp://rtmp01open.ys7.com/openlive/c60937c90d4242499790cdc8d819f6c5",
+      videoUrl:"rtmp",
       number: 0,
-      now: "2020-6-15 20:23:33"
+      now: "2020-6-15 20:23:33",
+      tableData: [
+        {
+          number: "129",
+          warning: "100",
+          createTime: "2016-05-02 21:23:25"
+        }
+      ]
     };
   },
   mounted() {
