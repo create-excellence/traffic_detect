@@ -4,38 +4,42 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/foo', component: () => import('../views/center') },
-    { path: '/bar', component: () => import('../views/center') },
-    {
-        path:'/center',
-        component: ()=>import('../views/center'),
-        children:[
-            {
-                path:'',
-                component:() => import('../views/dashbord'),
-            },
-            {
-                path:'dashboard',
-                component:() => import('../views/dashbord'),
-            },
-            {
-                path:'devices',
-                component:() => import('../views/devices'),
-            },    
-            {
-                path:'settings',
-                component:() => import('../views/settings'),
-            },
-        ]
-    },
-    {
-        path:'/yolo/:id',
-        component:() => import('../views/yolo'),
-    },
+  { path: '/foo', component: () => import('../views/center') },
+  { path: '/bar', component: () => import('../views/center') },
+  {
+    path: '/center',
+    component: () => import('../views/center'),
+    children: [
+      {
+        path: '',
+        component: () => import('../views/dashbord'),
+      },
+      {
+        path: 'dashboard',
+        component: () => import('../views/dashbord'),
+      },
+      {
+        path: 'devices',
+        component: () => import('../views/devices'),
+      },
+      {
+        path: 'settings',
+        component: () => import('../views/settings'),
+      },
+    ],
+  },
+  {
+    path: '/yolo/:id',
+    component: () => import('../views/yolo'),
+  },
+  {
+    path: '/login',
+    component: () => import('../views/login'),
+  },
 ]
 
 const router = new VueRouter({
-    routes
+  routes,
 })
 
 export default router

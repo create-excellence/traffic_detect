@@ -1,29 +1,29 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import { store } from '../store/user'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://localhost:7004/api/v1', // url = base url + request url
-  timeout: 1000 * 10, // request timeout
-  withCredentials: true
+  baseURL: 'http://localhost:7000', // url = base url + request url
+  timeout: 1000 * 5,
 })
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
+  (config) => {
     // do something before request is sent
 
-    // if (store.getters.token) {
-    //   // let each request carry token
-    //   // ['X-Token'] is a custom headers key
-    //   // please modify it according to the actual situation
-    //   config.headers['X-Token'] = getToken()
-    // }
+    if (store.token) {
+      // let each request carry token
+      // ['X-Token'] is a custom headers key
+      // please modify it according to the actual situation
+      config.headers['Authentication'] = store.token
+    }
     return config
   },
-  error => {
+  (error) => {
     // do something with request error
     console.log(error) // for debug
     return Promise.reject(error)
@@ -35,14 +35,14 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
-  response => {
+  (response) => {
     console.log(response)
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
@@ -50,19 +50,19 @@ service.interceptors.response.use(
       Message({
         message: res.message || 'Error',
         type: 'error',
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
       return res
     } else {
       return res
     }
   },
-  error => {
+  (error) => {
     console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',
-      duration: 5 * 1000
+      duration: 5 * 1000,
     })
     return Promise.reject(error)
   }
