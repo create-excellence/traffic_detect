@@ -42,11 +42,7 @@
         label="设备位置"
         prop="position"
       />
-    <el-table-column
-        align="center"
-        label="设备位置"
-        prop="position"
-      />
+
           <el-table-column
         align="center"
         label="预警值"
@@ -141,7 +137,17 @@
           <el-input
             v-model="editForm.source"
             placeholder="请配置设备视频源"
-            axlength="100"
+            maxlength="100"
+          />
+        </el-form-item>
+          <el-form-item
+          prop="ip"
+          label="设备ip"
+        >
+          <el-input
+            v-model="editForm.ip"
+            placeholder="请配置设备ip"
+            maxlength="20"
           />
         </el-form-item>
            <el-form-item
@@ -214,7 +220,8 @@ export default {
         code:'',
         position:'',
         warning:60, 
-        status:"0"   
+        status:'0',
+        ip:''  
       },
       carmer: {},
       loading: true,
@@ -298,7 +305,8 @@ export default {
         code:'',
         position:'',
         warning:60, 
-        status:"0"     
+        status:"0",
+        ip:''   
       }
     },
     handleFilter() {
@@ -313,7 +321,8 @@ export default {
         code:carmer.code,
         position:carmer.position,
         warning:carmer.warning,  
-        status:carmer.status
+        status:carmer.status,
+        ip:carmer.ip
       },
       this.showDialog = true
     },
