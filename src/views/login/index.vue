@@ -54,6 +54,7 @@ export default {
       const res = await login(this.loginForm)
       if (res.code === 0) {
         store.setToken(res.data.token)
+        this.$router.push('/center/devices')
         console.log(res.data.token)
       }
     },
