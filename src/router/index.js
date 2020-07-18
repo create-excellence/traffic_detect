@@ -23,6 +23,14 @@ const routes = [
         component: () => import('../views/devices'),
       },
       {
+        path: 'user',
+        component: () => import('../views/user'),
+      },
+      {
+        path: 'snapshot',
+        component: () => import('../views/snapshot'),
+      },
+      {
         path: 'settings',
         component: () => import('../views/settings'),
       },

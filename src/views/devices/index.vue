@@ -315,7 +315,7 @@ export default {
     },
     handleEdit(carmer) {
       this.carmer = carmer
-       this.editForm = {
+      this.editForm = {
         name: carmer.name,
         source:carmer.source,
         code:carmer.code,

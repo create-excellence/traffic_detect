@@ -4,10 +4,14 @@
     <div class="line"><span></span></div>
     <form>
       <input v-model="loginForm.username" type="text" class="text" />
-      <input v-model="loginForm.password" type="password" />
+      <input
+        v-model="loginForm.password"
+        @keyup.enter.native="handleLogin"
+        type="password"
+      />
       <div class="submit">
         <el-button
-          @click="handleLogin"
+          @click.native.prevent="handleLogin"
           style="width:100%;height:50px"
           type="success"
           >登录</el-button
@@ -54,6 +58,7 @@ export default {
       const res = await login(this.loginForm)
       if (res.code === 0) {
         store.setToken(res.data.token)
+        this.$router.push('/center/devices')
         console.log(res.data.token)
       }
     },
