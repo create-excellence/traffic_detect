@@ -191,7 +191,6 @@ export default {
         status: 0,
         roles: [],
       },
-      currentRow: null,
       rules: {
         username: [
           { required: true, message: '用户名不能为空', trigger: 'blur' },

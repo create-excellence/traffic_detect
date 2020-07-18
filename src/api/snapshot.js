@@ -1,16 +1,8 @@
 import request from '@/utils/request'
 
-export function login(data) {
-  return request({
-    url: '/detect-user/user/login',
-    method: 'post',
-    data,
-  })
-}
-
 export function add(data) {
   return request({
-    url: '/detect-user/user/add',
+    url: '/flow-analyze/snapshot/add',
     method: 'post',
     data,
   })
@@ -18,7 +10,7 @@ export function add(data) {
 
 export function get(data) {
   return request({
-    url: '/detect-user/user/' + data.id,
+    url: '/flow-analyze/snapshot/' + data.id,
     method: 'get',
     data,
   })
@@ -26,7 +18,7 @@ export function get(data) {
 
 export function _delete(data) {
   return request({
-    url: '/detect-user/user/delete/' + data.id,
+    url: '/flow-analyze/snapshot/delete/' + data.id,
     method: 'delete',
     data,
   })
@@ -34,15 +26,15 @@ export function _delete(data) {
 
 export function update(data) {
   return request({
-    url: '/detect-user/user/update',
+    url: '/flow-analyze/snapshot/update',
     method: 'put',
     data,
   })
 }
 
-export function queryUsers(queryOption) {
+export function querySnapshots(queryOption) {
   return request({
-    url: '/detect-user/user/list',
+    url: '/flow-analyze/snapshot/list',
     method: 'get',
     queryOption,
   })
