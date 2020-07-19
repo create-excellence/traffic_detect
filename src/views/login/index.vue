@@ -1,4 +1,5 @@
 <template>
+<div class="background">
   <div class="app-location">
     <h2>人流量管理平台</h2>
     <div class="line"><span></span></div>
@@ -6,7 +7,6 @@
       <input v-model="loginForm.username" type="text" class="text" />
       <input
         v-model="loginForm.password"
-        @keyup.enter.native="handleLogin"
         type="password"
       />
       <div class="submit">
@@ -20,6 +20,7 @@
       <div class="clear"></div>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -59,7 +60,6 @@ export default {
       if (res.code === 0) {
         store.setToken(res.data.token)
         this.$router.push('/center/devices')
-        console.log(res.data.token)
       }
     },
   },

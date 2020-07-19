@@ -15,11 +15,12 @@ service.interceptors.request.use(
   (config) => {
     // do something before request is sent
 
-    if (store.token) {
+    if (store.state.token) {
+      console.log("add?"+store.state.token)
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['Authentication'] = store.token
+      config.headers['Authentication'] = store.state.token
     }
     return config
   },
@@ -43,7 +44,6 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   (response) => {
-    console.log(response)
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
