@@ -6,7 +6,8 @@ import { store } from '../store/user'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://localhost:8888', // url = base url + request url
+  baseURL: 'http://39.108.220.199:9000', // url = base url + request url
+  // baseURL: 'http://localhost:8888', // url = base url + request url
   timeout: 1000 * 5,
 })
 
@@ -16,7 +17,6 @@ service.interceptors.request.use(
     // do something before request is sent
 
     if (store.state.token) {
-      console.log("add?"+store.state.token)
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
