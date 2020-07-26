@@ -113,8 +113,8 @@
         <el-form-item prop="position" label="状态">
           <el-switch
             v-model="editForm.status"
-            active-value="0"
-            inactive-value="1"
+            :active-value="0"
+            :inactive-value="1"
           >
           </el-switch>
           <span v-if="editForm.status == 0"> 已启用</span>
@@ -157,7 +157,7 @@ export default {
         code: '',
         position: '',
         warning: 60,
-        status: '0',
+        status: 0,
         ip: '',
       },
       carmer: {},
@@ -205,7 +205,7 @@ export default {
           return false
         }
         if (this.carmer.id) {
-          putCamera({ data: this.editForm, id: this.item.id }).then((res) => {
+          putCamera({ data: this.editForm, id: this.carmer.id }).then((res) => {
             if (res.code === 0) {
               this.resetForm()
               this.showDialog = false
@@ -252,7 +252,7 @@ export default {
         code: '',
         position: '',
         warning: 60,
-        status: '0',
+        status: 0,
         ip: '',
       }
     },
@@ -262,6 +262,7 @@ export default {
     },
     handleEdit(carmer) {
       this.carmer = carmer
+      console.log(carmer.status)
       ;(this.editForm = {
         name: carmer.name,
         source: carmer.source,

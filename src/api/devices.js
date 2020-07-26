@@ -8,6 +8,14 @@ export function queryCamera(params) {
   })
 }
 
+export function getCameraById(params) {
+  return request({
+    url: '/detect-camera/api/v1/camera',
+    method: 'get',
+    params,
+  })
+}
+
 export function createCamera(data) {
   return request({
     url: '/detect-camera/api/v1/camera',

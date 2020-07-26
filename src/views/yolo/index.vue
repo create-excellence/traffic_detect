@@ -51,59 +51,61 @@
 </template>
 
 <script>
+import { getLastOne, getWarningData } from "../../api/flow";
+import { getCameraById } from "../../api/devices";
 import EasyPlayer from "@easydarwin/easyplayer";
 export default {
   components: {
     EasyPlayer
   },
+  props:['data'],
   data() {
     return {
-      //http://play.imhtb.cn/live/1.flv
-      //rtmp://play.imhtb.cn/live/1
-      //videoUrl:"rtmp://rtmp01open.ys7.com/openlive/c60937c90d4242499790cdc8d819f6c5",
-      videoUrl:"rtmp",
+      cameraId: this.$route.params.id,
+      videoUrl:
+        "rtmp://rtmp01open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd",
       number: 0,
-      now: "2020-6-15 20:23:33",
-      tableData: [
-        {
-          number: "129",
-          warning: "100",
-          createTime: "2016-05-02 21:23:25"
-        }
-      ]
+      now: "",
+      tableData: []
     };
   },
   mounted() {
-    //this.myEcharts();
+    // 测试
+    setInterval(() => {
+      this.getLastOne();
+    }, 1000);
+    this.init();
   },
   methods: {
-    myEcharts() {
-      var myChart = this.$echarts.init(document.getElementById("main"));
-
-      // 指定图表的配置项和数据
-      var option = {
-        title: {
-          text: "Traffic Detect"
-        },
-        tooltip: {},
-        xAxis: {
-          type: "category",
-          data: ["12:13", "12:14", "12:15", "12:16", "12:17", "12:18", "12:19"]
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: [
-          {
-            data: [1, 5, 9, 2, 12, 7, 9],
-            type: "line"
-          }
-        ]
+    init() {
+      let params = {
+        cid: this.cameraId,
+        page: 1,
+        limit: 10
       };
-
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-    }
+      getWarningData(params).then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data.records;
+        }
+      });
+      getCameraById({id:this.cameraId}).then(r=>{
+         if (r.code === 0) {
+          this.videoUrl = r.data.pushUrl;
+        }
+      })
+      
+    },
+    getLastOne() {
+      let params = {
+        cid: this.cameraId
+      };
+      getLastOne(params).then(res => {
+        if (res.code === 0) {
+          this.number = res.data.flow;
+          this.now = res.data.createTime;
+        }
+      });
+    },
   }
 };
 </script>
