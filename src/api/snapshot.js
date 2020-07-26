@@ -1,4 +1,20 @@
+import axios from 'axios'
 import request from '@/utils/request'
+
+export function upload(file) {
+  let config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+  var formData = new FormData()
+  formData.append('file', file)
+  return axios.post(
+    'http://localhost:9000/flow-analyze/snapshot/upload',
+    formData,
+    config
+  )
+}
 
 export function add(data) {
   return request({

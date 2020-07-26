@@ -31,6 +31,10 @@ const routes = [
         component: () => import('../views/snapshot'),
       },
       {
+        path: 'analyze',
+        component: () => import('../views/analyze'),
+      },
+      {
         path: 'settings',
         component: () => import('../views/settings'),
       },

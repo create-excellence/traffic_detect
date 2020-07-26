@@ -24,6 +24,12 @@
         <span slot="title">Snapshot</span>
       </template></el-menu-item
     >
+    <el-menu-item index="/center/analyze">
+      <template slot="title">
+        <i class="el-icon-setting"></i>
+        <span slot="title">人流量分析</span>
+      </template></el-menu-item
+    >
     <el-menu-item index="/center/settings">
       <template slot="title">
         <i class="el-icon-setting"></i>

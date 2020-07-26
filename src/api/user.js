@@ -16,11 +16,11 @@ export function add(data) {
   })
 }
 
-export function get(data) {
+export function get(params) {
   return request({
-    url: '/detect-user/user/' + data.id,
+    url: '/detect-user/user/' + params.id,
     method: 'get',
-    data,
+    params,
   })
 }
 
@@ -40,10 +40,10 @@ export function update(data) {
   })
 }
 
-export function queryUsers(queryOption) {
+export function queryUsers(params) {
   return request({
     url: '/detect-user/user/list',
     method: 'get',
-    queryOption,
+    params,
   })
 }
