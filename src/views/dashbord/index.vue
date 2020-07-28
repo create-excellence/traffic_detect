@@ -18,18 +18,7 @@ export default {
     return {
       page: 1,
       limit: 10,
-      monitorData: [
-        {
-          id: 1,
-          name: "大学生活动中心路口#1",
-          status: 0
-        },
-        {
-          id: 2,
-          name: "大学生活动中心路口#2",
-          status: 1
-        }
-      ]
+      monitorData: []
     };
   },
   methods: {
@@ -39,7 +28,7 @@ export default {
         limit: this.limit
       }).then(res => {
         if (res.code === 0) {
-          this.data = res.data.records;
+          this.monitorData = res.data.records;
           this.loading = false;
         }
       });

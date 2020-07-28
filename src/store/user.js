@@ -1,6 +1,10 @@
 export var store = {
   state: {
     token: '',
+    webSocket: {
+      cid: '',
+      socket: ''
+    },
   },
   setToken(newValue) {
     this.state.token = newValue
@@ -8,4 +12,7 @@ export var store = {
   clearToken() {
     this.state.toekn = ''
   },
+  setWebSocket(v) {
+      this.state.webSocket = v
+  }
 }

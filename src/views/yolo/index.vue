@@ -53,6 +53,7 @@
 <script>
 import { getLastOne, getWarningData } from "../../api/flow";
 import { getCameraById } from "../../api/devices";
+import { store } from '../../store/user'
 import EasyPlayer from "@easydarwin/easyplayer";
 export default {
   components: {
@@ -62,8 +63,9 @@ export default {
   data() {
     return {
       cameraId: this.$route.params.id,
+      //rtmp://rtmp01open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd
       videoUrl:
-        "rtmp://rtmp01open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd",
+        "rtmp://play.imhtb.cn/live/1",
       number: 0,
       now: "",
       tableData: []
@@ -71,10 +73,11 @@ export default {
   },
   mounted() {
     // 测试
-    setInterval(() => {
-      this.getLastOne();
-    }, 1000);
+    // setInterval(() => {
+    //   this.getLastOne();
+    // }, 1000);
     this.init();
+    this.initWebSocket(this.cameraId)
   },
   methods: {
     init() {
@@ -84,13 +87,13 @@ export default {
         limit: 10
       };
       getWarningData(params).then(res => {
-        if (res.code === 0) {
+        if (res.code === 0 && res.data != null) {
           this.tableData = res.data.records;
         }
       });
       getCameraById({id:this.cameraId}).then(r=>{
-         if (r.code === 0) {
-          this.videoUrl = r.data.pushUrl;
+         if (r.code === 0 && r.data!=null) {
+          this.videoUrl = r.data.playUrl;
         }
       })
       
@@ -100,12 +103,56 @@ export default {
         cid: this.cameraId
       };
       getLastOne(params).then(res => {
-        if (res.code === 0) {
+        if (res.code === 0 && res.data != null) {
           this.number = res.data.flow;
           this.now = res.data.createTime;
         }
       });
     },
+    initWebSocket(cid) {
+      let socketObj = store.state.webSocket;
+      console.log(socketObj, "obj");
+      if (
+        socketObj.cid === cid &&
+        socketObj.socket != "" &&
+        socketObj.socket.readyState === 1
+      ) {
+        console.log("ws连接已经创建");
+      } else {
+        if (socketObj.socket != "") {
+          socketObj.socket.close();
+        }
+        //39.108.220.199
+        this.socket = new WebSocket(
+          "ws://39.108.220.199:7001/connect/" + cid
+        );
+        this.socket.onopen = this.open;
+        this.socket.onclose = this.onclose;
+        this.socket.onerror = this.error;
+        this.socket.onmessage = this.getMessage;
+        store.setWebSocket({
+          cid,
+          socket: this.socket
+        })
+      }
+    },
+     open() {
+      console.log("ws连接成功");
+    },
+    error() {
+      console.log("ws连接错误");
+    },
+    getMessage(msg) {
+      let message = JSON.parse(msg.data);
+      if (message.op === "Message") {
+        let d = JSON.parse(message.d);
+        this.number = d.number;
+        this.now = d.now;
+      }
+    },
+    onclose() {
+      console.log("ws已经关闭");
+    }
   }
 };
 </script>
