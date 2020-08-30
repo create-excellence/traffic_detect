@@ -64,18 +64,15 @@ export default {
     return {
       cameraId: this.$route.params.id,
       //rtmp://rtmp01open.ys7.com/openlive/f01018a141094b7fa138b9d0b856507b.hd
+      //rtmp://play.imhtb.cn/live/1
       videoUrl:
-        "rtmp://play.imhtb.cn/live/1",
+        "",
       number: 0,
       now: "",
       tableData: []
     };
   },
-  mounted() {
-    // 测试
-    // setInterval(() => {
-    //   this.getLastOne();
-    // }, 1000);
+  created() {
     this.init();
     this.initWebSocket(this.cameraId)
   },
@@ -97,6 +94,9 @@ export default {
         }
       })
       
+    },
+    callbackFun(){
+
     },
     getLastOne() {
       let params = {
@@ -144,8 +144,8 @@ export default {
     },
     getMessage(msg) {
       let message = JSON.parse(msg.data);
-      if (message.op === "Message") {
-        let d = JSON.parse(message.d);
+      if (message.op === "MESSAGE") {
+        let d = message.d;
         this.number = d.number;
         this.now = d.now;
       }
