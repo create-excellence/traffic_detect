@@ -10,8 +10,12 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "moment": "^2.27.0",
+    "iview": "^3.5.4",
+    "jquery": "^3.5.1",
+    "jquery-ui": "^1.12.1",
+    "moment": "^2.29.1",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.22.1",
     "vue-router": "^3.3.4"
   },
   "devDependencies": {

@@ -15,6 +15,10 @@ const routes = [
         component: () => import('../views/dashbord'),
       },
       {
+        path: 'monitor',
+        component: () => import('../views/monitor'),
+      },
+      {
         path: 'dashboard',
         component: () => import('../views/dashbord'),
       },
